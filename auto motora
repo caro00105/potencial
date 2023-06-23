@@ -1,0 +1,113 @@
+class Vehiculo:
+    def __init__(self, tipo, patente, marca, precio, multas, fecha_registro, nombre_dueno):
+        self.tipo = tipo
+        self.patente = patente
+        self.marca = marca
+        self.precio = precio
+        self.multas = multas
+        self.fecha_registro = fecha_registro
+        self.nombre_dueno = nombre_dueno
+
+vehiculos = []
+
+def grabar_vehiculo():
+    tipo = input("Tipo de vehículo: ")
+    patente = input("Patente: ")
+    marca = input("Marca: ")
+    precio = float(input("Precio: "))
+
+    if len(patente) != 6:
+        print("La patente debe tener 6 caracteres")
+        return
+
+    if len(marca) < 2 or len(marca) > 15:
+        print("La marca debe tener entre 2 y 15 caracteres")
+        return
+
+    if precio <= 5000000:
+        print("El precio debe ser mayor a $5.000.000")
+        return
+
+    multas = []
+    fecha_registro = input("Fecha de registro: ")
+    nombre_dueno = input("Nombre del dueño: ")
+
+    vehiculo = Vehiculo(tipo, patente, marca, precio, multas, fecha_registro, nombre_dueno)
+    vehiculos.append(vehiculo)
+    print("Vehículo grabado exitosamente")
+
+def buscar_vehiculo():
+    patente = input("Ingrese la patente del vehículo a buscar: ")
+    encontrado = False
+
+    for vehiculo in vehiculos:
+        if vehiculo.patente == patente:
+            encontrado = True
+            print("Tipo:", vehiculo.tipo)
+            print("Patente:", vehiculo.patente)
+            print("Marca:", vehiculo.marca)
+            print("Precio:", vehiculo.precio)
+            print("Multas:", vehiculo.multas)
+            print("Fecha de registro:", vehiculo.fecha_registro)
+            print("Nombre del dueño:", vehiculo.nombre_dueno)
+            break
+
+    if not encontrado:
+        print("No se encontró ningún vehículo con la patente especificada")
+
+def imprimir_certificados():
+    patente = input("Ingrese la patente del vehículo: ")
+    encontrado = False
+
+    for vehiculo in vehiculos:
+        if vehiculo.patente == patente:
+            encontrado = True
+            print("Certificado de Emisión de Contaminantes")
+            print("Nombre del certificado: Emisión de contaminantes")
+            print("Valor del certificado: $1500")
+            print("Patente del auto:", vehiculo.patente)
+            print("Datos del dueño:", vehiculo.nombre_dueno)
+            print("")
+
+            print("Certificado de Anotaciones Vigentes")
+            print("Nombre del certificado: Anotaciones vigentes")
+            print("Valor del certificado: $3500")
+            print("Patente del auto:", vehiculo.patente)
+            print("Datos del dueño:", vehiculo.nombre_dueno)
+            print("")
+
+            print("Certificado de Multas")
+            print("Nombre del certificado: Certificado de multas")
+            print("Valor del certificado: $1500")
+            print("Patente del auto:", vehiculo.patente)
+            print("Datos del dueño:", vehiculo.nombre_dueno)
+            break
+
+    if not encontrado:
+        print("No se encontró ningún vehículo con la patente especificada")
+
+# Función principal del menú
+def menu():
+    while True:
+        print("----- Auto Seguro -----")
+        print("1. Grabar")
+        print("2. Buscar")
+        print("3. Imprimir certificados")
+        print("4. Salir")
+
+        opcion = input("Ingrese una opción: ")
+
+        if opcion == "1":
+            grabar_vehiculo()
+        elif opcion == "2":
+            buscar_vehiculo()
+        elif opcion == "3":
+            imprimir_certificados()
+        elif opcion == "4":
+            print("¡Hasta luego!")
+            break
+        else:
+            print("Opción inválida. Intente nuevamente.")
+
+menu()
+
